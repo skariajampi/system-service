@@ -1,0 +1,56 @@
+server:
+  servlet:
+    context-path: /adaas-rct/system-service
+
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: "health, prometheus, info"
+      path-mapping:
+        prometheus: "/metrics"
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  api-docs:
+    path: /contract
+    enabled: true
+  auto-tag-classes: false
+
+spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: NON_NULL
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: adaas
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    schemas:
+      - adaas
+    default-schema: adaas
+    baseline-on-migrate: true
+    enabled: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_qCYy8iuMF/.well-known/jwks.json
+          issuer-uri: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_qCYy8iuMF
+#  config:
+#    import: optional:aws-secretsmanager:secret/demo
