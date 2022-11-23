@@ -25,65 +25,63 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers
 class SystemRepositoryTest {
 
-    @Container
-    private static final PostgreSQLContainer<?> postgres =
-            new PostgreSQLContainer<>(DockerImageName.parse("postgres").withTag("12.3"))
-                    .withPassword("postgres");
+  @Container
+  private static final PostgreSQLContainer<?> postgres =
+      new PostgreSQLContainer<>(DockerImageName.parse("postgres").withTag("12.3"))
+          .withPassword("postgres");
 
-    @DynamicPropertySource
-    static void registerDynamicProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgres::getJdbcUrl);
-        registry.add("spring.datasource.username", postgres::getUsername);
-        registry.add("spring.datasource.password", postgres::getPassword);
-    }
+  @DynamicPropertySource
+  static void registerDynamicProperties(DynamicPropertyRegistry registry) {
+    registry.add("spring.datasource.url", postgres::getJdbcUrl);
+    registry.add("spring.datasource.username", postgres::getUsername);
+    registry.add("spring.datasource.password", postgres::getPassword);
+  }
 
-    @Autowired
-    private SystemRepository systemRepository;
+  @Autowired private SystemRepository systemRepository;
 
-    @Test
-    void getAllSystems_shouldReturnAllSystems() {
+  @Test
+  void getAllSystems_shouldReturnAllSystems() {
 
-        List<SystemEntity> systemEntities = systemRepository.findAll();
+    List<SystemEntity> systemEntities = systemRepository.findAll();
 
-        assertThat(systemEntities).hasSize(4);
-        assertThat(systemEntities).extracting("code").contains("JSA", "MA", "AFN", "CN");
-    }
+    assertThat(systemEntities).hasSize(4);
+    assertThat(systemEntities).extracting("code").contains("JSA", "MA", "AFN", "CN");
+  }
 
-    @Test
-    void getSystemByCode_shouldReturnASystem() {
+  @Test
+  void getSystemByCode_shouldReturnASystem() {
 
-        Optional<SystemEntity> systemEntity = systemRepository.findByCode("AFN");
+    Optional<SystemEntity> systemEntity = systemRepository.findByCode("AFN");
 
-        assertThat(systemEntity.isPresent());
-        assertThat(systemEntity.get().getCode()).isEqualTo("AFN");
-    }
+    assertThat(systemEntity.isPresent());
+    assertThat(systemEntity.get().getCode()).isEqualTo("AFN");
+  }
 
-    @Test
-    @Transactional
-    void saveASystem_shouldReturnASystem() {
+  @Test
+  @Transactional
+  void saveASystem_shouldReturnASystem() {
 
-        SystemEntity systemEntityToBeSaved = getSystemEntity();
+    SystemEntity systemEntityToBeSaved = getSystemEntity();
 
-        systemRepository.deleteAll();
+    systemRepository.deleteAll();
 
-        SystemEntity systemEntity = systemRepository.save(systemEntityToBeSaved);
+    SystemEntity systemEntity = systemRepository.save(systemEntityToBeSaved);
 
-        assertThat(systemEntity.getCode()).isEqualTo("JSA2");
+    assertThat(systemEntity.getCode()).isEqualTo("JSA2");
 
-        Optional<SystemEntity> savedSystemEntity = systemRepository.findByCode("JSA2");
+    Optional<SystemEntity> savedSystemEntity = systemRepository.findByCode("JSA2");
 
-        assertThat(savedSystemEntity.isPresent());
-        assertThat(savedSystemEntity.get().getCode()).isEqualTo("JSA2");
-    }
+    assertThat(savedSystemEntity.isPresent());
+    assertThat(savedSystemEntity.get().getCode()).isEqualTo("JSA2");
+  }
 
-    @NotNull
-    private SystemEntity getSystemEntity() {
-        SystemEntity adaasSystem = new SystemEntity();
-        adaasSystem.setId(UUID.randomUUID());
-        adaasSystem.setCode("JSA2");
-        adaasSystem.setName("Job Seekers Allowance2");
-        adaasSystem.setDescription("Description: Job Seekers Allowance2");
-        return adaasSystem;
-    }
-
+  @NotNull
+  private SystemEntity getSystemEntity() {
+    SystemEntity adaasSystem = new SystemEntity();
+    adaasSystem.setId(UUID.randomUUID());
+    adaasSystem.setCode("JSA2");
+    adaasSystem.setName("Job Seekers Allowance2");
+    adaasSystem.setDescription("Description: Job Seekers Allowance2");
+    return adaasSystem;
+  }
 }

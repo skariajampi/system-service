@@ -8,15 +8,13 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@WithSecurityContext(
-    factory = WithMockAwsCognitoUserSecurityContextFactory.class
-)
+@WithSecurityContext(factory = WithMockAwsCognitoUserSecurityContextFactory.class)
 public @interface WithAwsCognitoUser {
-    String username() default "";
+  String username() default "";
 
-    String authority() default "";
+  String authority() default "";
 
-    String email() default "test@test.com";
+  String email() default "test@test.com";
 
-    boolean authenticated() default true;
+  boolean authenticated() default true;
 }

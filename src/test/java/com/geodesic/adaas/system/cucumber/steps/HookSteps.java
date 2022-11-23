@@ -8,23 +8,22 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class HookSteps {
 
-    private final RequestData requestData;
-    private final DatabaseDelegate databaseDelegate;
+  private final RequestData requestData;
+  private final DatabaseDelegate databaseDelegate;
 
-    public HookSteps(
-            RequestData requestData, DatabaseDelegate databaseDelegate) {
-        this.requestData = requestData;
-        this.databaseDelegate = databaseDelegate;
-    }
+  public HookSteps(RequestData requestData, DatabaseDelegate databaseDelegate) {
+    this.requestData = requestData;
+    this.databaseDelegate = databaseDelegate;
+  }
 
-    @Before
-    public void before() {
-        requestData.clear();
-        databaseDelegate.clear();
-    }
+  @Before
+  public void before() {
+    requestData.clear();
+    databaseDelegate.clear();
+  }
 
-    @After
-    public void after() {
-        SecurityContextHolder.clearContext();
-    }
+  @After
+  public void after() {
+    SecurityContextHolder.clearContext();
+  }
 }

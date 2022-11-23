@@ -4,7 +4,7 @@ Feature: Get System
     Given System database records exist
       | code | name           | description                |
       | AFN  | Apply for Nino | Apply for Nino Description |
-    And The client is authenticated with roles 'MyGreeterLambda'
+    And The client is authenticated with roles 'VISITOR'
     When The get system request is sent for code 'AFN'
     Then The response has an http status 200
     And The response contains system data
@@ -15,7 +15,7 @@ Feature: Get System
     Given System database records exist
       | code | name           | description                |
       | AFN  | Apply for Nino | Apply for Nino Description |
-    And The client is authenticated with roles 'MyGreeterLambda'
+    And The client is authenticated with roles 'VISITOR'
     When The get system request is sent for code 'NOT'
     Then The response has an http status 404
 

@@ -4,7 +4,7 @@ Feature: Create System
     Given A create system request is created with
       | code | name           | description                |
       | AFN  | Apply for Nino | Apply for Nino Description |
-    And The client is authenticated with roles 'MyGreeterLambda'
+    And The client is authenticated with roles 'VISITOR'
     When The create system request is sent
     Then The response has an http status 201
     And The response contains system data
@@ -21,7 +21,7 @@ Feature: Create System
     And A create system request is created with
       | code | name           | description                |
       | AFN  | Apply for Nino | Apply for Nino Description |
-    And The client is authenticated with roles 'MyGreeterLambda'
+    And The client is authenticated with roles 'VISITOR'
     When The create system request is sent
     Then The response has an http status 400
 
@@ -29,7 +29,7 @@ Feature: Create System
     Given A create system request is created with
       | code   | name   | description   |
       | <code> | <name> | <description> |
-    And The client is authenticated with roles 'MyGreeterLambda'
+    And The client is authenticated with roles 'VISITOR'
     When The create system request is sent
     Then The response has an http status 400
     Examples:

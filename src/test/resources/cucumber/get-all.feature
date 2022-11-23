@@ -6,7 +6,7 @@ Feature: Get All Systems
       | eb8a3639-4d90-4712-ab8b-f49efb6cdd44 | AFN  | Apply for Nino       | Apply for Nino Description       |
       | 8A7089E8-3EA5-4CCB-9272-D0E94986F369 | JSA  | Job Seeker Allowance | Job Seeker Allowance Description |
 
-    And The client is authenticated with roles 'MyGreeterLambda'
+    And The client is authenticated with roles 'VISITOR'
     When The getAll systems request is sent
     Then The response has an http status 200
     And The getAll systems response contains

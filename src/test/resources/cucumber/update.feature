@@ -6,7 +6,7 @@ Feature: Update System
       | MA   | Maternity Allowance  | Maternity Allowance Description  |
       | AFN  | Apply for Nino       | Apply for Nino Description       |
       | JSA  | Jobseekers Allowance | Jobseekers Allowance Description |
-    Given The client is authenticated with roles 'MyGreeterLambda'
+    Given The client is authenticated with roles 'VISITOR'
     And An update system request is created with
       | code | name                 | description                      |
       | AFN  | Diff Apply for Nino! | Diff Apply for Nino Description! |
@@ -27,7 +27,7 @@ Feature: Update System
       | MA   | Maternity Allowance  | Maternity Allowance Description  |
       | AFN  | Apply for Nino       | Apply for Nino Description       |
       | JSA  | Jobseekers Allowance | Jobseekers Allowance Description |
-    Given The client is authenticated with roles 'MyGreeterLambda'
+    Given The client is authenticated with roles 'VISITOR'
     And An update system request is created with
       | code | name                 | description                      |
       | MA   | Diff Apply for Nino! | Diff Apply for Nino Description! |
@@ -47,7 +47,7 @@ Feature: Update System
     And An update system request is created with
       | code | name                 | description                      |
       | AFN  | Diff Apply for Nino! | Diff Apply for Nino Description! |
-    And The client is authenticated with roles 'MyGreeterLambda'
+    And The client is authenticated with roles 'VISITOR'
     When The update system request is sent for code 'AFN'
     Then The response has an http status 404
     And The database only contains records

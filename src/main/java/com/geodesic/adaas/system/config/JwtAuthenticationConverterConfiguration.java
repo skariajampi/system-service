@@ -2,8 +2,8 @@ package com.geodesic.adaas.system.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 
 /**
  * The JWT Converter which is used by the JWT Configurer in spring httpsecurity. Note here that the
@@ -19,18 +19,11 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 @Configuration
 public class JwtAuthenticationConverterConfiguration {
 
-    private static final String ROLES_CLAIM_NAME = "cognito:groups";
-    private static final String ROLE_PREFIX = "";
+  @Bean
+  public JwtAuthenticationConverter getJwtAuthenticationConverter(Converter keycloakRealmRoleConverter) {
+    JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+    jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(keycloakRealmRoleConverter);
+    return jwtAuthenticationConverter;
+  }
 
-    @Bean
-    public JwtAuthenticationConverter getJwtAuthenticationConverter() {
-        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter =
-                new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(ROLES_CLAIM_NAME);
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix(ROLE_PREFIX);
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
-
-        return jwtAuthenticationConverter;
-    }
 }

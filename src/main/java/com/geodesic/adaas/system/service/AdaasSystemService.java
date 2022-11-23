@@ -8,13 +8,14 @@ import java.util.List;
 
 public interface AdaasSystemService {
 
-    SystemResponse save(CreateUpdateSystemRequest createUpdateSystemRequest);
+  SystemResponse save(CreateUpdateSystemRequest createUpdateSystemRequest);
 
-    SystemResponse update(String code, CreateUpdateSystemRequest createUpdateSystemRequest) throws RecordNotFoundException;
+  SystemResponse update(String code, CreateUpdateSystemRequest createUpdateSystemRequest)
+      throws RecordNotFoundException;
 
-    SystemResponse getAdaasSystem(String code) throws RecordNotFoundException;
+  SystemResponse getAdaasSystem(String code) throws RecordNotFoundException;
 
-    List<SystemResponse> getAdaasSystems();
+  List<SystemResponse> getAdaasSystems();
 
-    void deleteByCode(String code) throws RecordNotFoundException;
+  void deleteByCode(String code) throws RecordNotFoundException;
 }

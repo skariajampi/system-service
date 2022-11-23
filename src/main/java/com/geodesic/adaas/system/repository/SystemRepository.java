@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface SystemRepository extends JpaRepository<SystemEntity, UUID> {
 
-    Optional<SystemEntity> findByCode(String code);
+  Optional<SystemEntity> findByCode(String code);
 }

@@ -6,7 +6,7 @@ Feature: Delete System
       | MA   | Maternity Allowance  | Maternity Allowance Description  |
       | AFN  | Apply for Nino       | Apply for Nino Description       |
       | JSA  | Jobseekers Allowance | Jobseekers Allowance Description |
-    Given The client is authenticated with roles 'MyGreeterLambda'
+    Given The client is authenticated with roles 'VISITOR'
     When The delete system request is sent for code 'AFN'
     Then The response has an http status 204
     And The database only contains records
@@ -19,7 +19,7 @@ Feature: Delete System
       | code | name                 | description                      |
       | MA   | Maternity Allowance  | Maternity Allowance Description  |
       | JSA  | Jobseekers Allowance | Jobseekers Allowance Description |
-    And The client is authenticated with roles 'MyGreeterLambda'
+    And The client is authenticated with roles 'VISITOR'
     When The delete system request is sent for code 'AFN'
     Then The response has an http status 404
     And The database only contains records

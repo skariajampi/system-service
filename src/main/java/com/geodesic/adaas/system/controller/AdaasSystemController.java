@@ -20,57 +20,54 @@ import java.util.List;
 @Validated
 public class AdaasSystemController {
 
-    private final AdaasSystemService adaasSystemService;
+  private final AdaasSystemService adaasSystemService;
 
-    @Autowired
-    public AdaasSystemController(final AdaasSystemService adaasSystemService) {
-        this.adaasSystemService = adaasSystemService;
-    }
+  @Autowired
+  public AdaasSystemController(final AdaasSystemService adaasSystemService) {
+    this.adaasSystemService = adaasSystemService;
+  }
 
-    @GetMapping("/{code}")
-    @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAuthority('MyGreeterLambda')")
-    public SystemResponse getAdaasSystem(
-            @PathVariable("code") final String code) throws RecordNotFoundException {
+  @GetMapping("/{code}")
+  @ResponseStatus(HttpStatus.OK)
+  @PreAuthorize("hasAuthority('VISITOR')")
+  public SystemResponse getAdaasSystem(@PathVariable("code") final String code)
+      throws RecordNotFoundException {
 
-        return adaasSystemService.getAdaasSystem(code);
-    }
+    return adaasSystemService.getAdaasSystem(code);
+  }
 
+  @GetMapping
+  @ResponseStatus(HttpStatus.OK)
+  @PreAuthorize("hasAuthority('VISITOR')")
+  public List<SystemResponse> getAdaasSystems() {
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAuthority('MyGreeterLambda')")
-    public List<SystemResponse> getAdaasSystems() {
+    return adaasSystemService.getAdaasSystems();
+  }
 
-        return adaasSystemService.getAdaasSystems();
-    }
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  @PreAuthorize("hasAuthority('VISITOR')")
+  public SystemResponse save(
+      @Valid @RequestBody final CreateUpdateSystemRequest createUpdateSystemRequest) {
 
+    return adaasSystemService.save(createUpdateSystemRequest);
+  }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAuthority('MyGreeterLambda')")
-    public SystemResponse save(
-            @Valid @RequestBody final CreateUpdateSystemRequest createUpdateSystemRequest) {
+  @PutMapping("/{code}")
+  @ResponseStatus(HttpStatus.OK)
+  @PreAuthorize("hasAuthority('VISITOR')")
+  public SystemResponse update(
+      @PathVariable String code,
+      @Valid @RequestBody final CreateUpdateSystemRequest createUpdateSystemRequest)
+      throws RecordNotFoundException {
 
-        return adaasSystemService.save(createUpdateSystemRequest);
-    }
+    return adaasSystemService.update(code, createUpdateSystemRequest);
+  }
 
-
-    @PutMapping("/{code}")
-    @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAuthority('MyGreeterLambda')")
-    public SystemResponse update(@PathVariable String code,
-            @Valid @RequestBody final CreateUpdateSystemRequest createUpdateSystemRequest) throws RecordNotFoundException {
-
-        return adaasSystemService.update(code, createUpdateSystemRequest);
-    }
-
-
-    @DeleteMapping("/{code}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAuthority('MyGreeterLambda')")
-    public void deleteAdaasSystem(@PathVariable String code) throws RecordNotFoundException {
-        adaasSystemService.deleteByCode(code);
-    }
-
+  @DeleteMapping("/{code}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @PreAuthorize("hasAuthority('VISITOR')")
+  public void deleteAdaasSystem(@PathVariable String code) throws RecordNotFoundException {
+    adaasSystemService.deleteByCode(code);
+  }
 }

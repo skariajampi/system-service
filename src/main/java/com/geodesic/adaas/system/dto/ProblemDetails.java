@@ -9,10 +9,9 @@ import lombok.Getter;
 @Getter
 public class ProblemDetails {
 
-    private final String code;
+  private final String code;
 
-    private final String title;
+  private final String title;
 
-    private final String message;
-
+  private final String message;
 }

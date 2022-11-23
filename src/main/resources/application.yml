@@ -1,11 +1,12 @@
 server:
   servlet:
     context-path: /adaas-rct/system-service
+  port: 8082
 
 management:
   endpoints:
     web:
-      base-path: /
+      #      base-path: /
       exposure:
         include: "health, prometheus, info"
       path-mapping:
@@ -50,7 +51,25 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_qCYy8iuMF/.well-known/jwks.json
-          issuer-uri: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_qCYy8iuMF
+          #jwk-set-uri: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_qCYy8iuMF/.well-known/jwks.json
+          jwk-set-uri: http://localhost:8080/auth/realms/test/protocol/openid-connect/certs
+          #issuer-uri: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_qCYy8iuMF
+          issuer-uri:  http://localhost:8080/auth/realms/test
+      client:
+        provider:
+          keycloak:
+            #authorization-uri: http://localhost:8080/auth/realms/test/protocol/openid-connect/auth
+            token-uri: http://localhost:8080/auth/realms/test/protocol/openid-connect/token
+            #user-info-uri: http://localhost:8080/auth/realms/test/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8080/auth/realms/test/protocol/openid-connect/certs
+            #user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: test_client
+            client-secret: 8ac27a39-fa84-46b9-8c30-b485056e0cea
+            #authorization-grant-type: authorization_code
+            authorization-grant-type: client_credentials
+            scope: openid
+
 #  config:
 #    import: optional:aws-secretsmanager:secret/demo

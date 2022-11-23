@@ -11,12 +11,9 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class CreateUpdateSystemRequest {
 
-    @NotBlank
-    private String code;
+  @NotBlank private String code;
 
-    @NotBlank
-    private String name;
+  @NotBlank private String name;
 
-    @NotBlank
-    private String description;
+  @NotBlank private String description;
 }

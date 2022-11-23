@@ -11,11 +11,11 @@ import java.util.UUID;
 @Getter
 public class SystemResponse {
 
-    private UUID id;
+  private UUID id;
 
-    private String code;
+  private String code;
 
-    private String name;
+  private String name;
 
-    private String description;
+  private String description;
 }

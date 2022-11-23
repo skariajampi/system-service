@@ -14,13 +14,13 @@ import java.util.UUID;
 @Table(name = "adaas_system")
 public class SystemEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID id;
 
-    private String code;
+  private String code;
 
-    private String name;
+  private String name;
 
-    private String description;
+  private String description;
 }
